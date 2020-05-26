@@ -366,7 +366,11 @@ export class AnchoredRegion extends FASTElement {
      * Gets the viewport element by id, or defaults to component parent
      */
     public getViewport = (): HTMLElement | null => {
-        if (typeof this.viewport !== "string") {
+        if (
+            typeof this.viewport !== "string" ||
+            this.viewport === ""
+
+        ) {
             return this.region.parentElement;
         }
 
