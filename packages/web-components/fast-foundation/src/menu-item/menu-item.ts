@@ -22,9 +22,14 @@ export class MenuItem extends FASTElement {
     public checked: boolean;
 
     public handleMenuItemKeyDown = (e: KeyboardEvent): boolean => {
+        console.log("hello from menu item...");
         this.change();
 
         return true;
+    };
+
+    public handleFocus = (e: FocusEvent) => {
+        console.log("MenuItem handleFocus called e:", e);
     };
 
     public handleMenuItemClick = (e: MouseEvent): void => {
