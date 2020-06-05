@@ -905,6 +905,8 @@ export class TreeItem extends FASTElement {
     // (undocumented)
     connectedCallback(): void;
     // (undocumented)
+    disabled: boolean;
+    // (undocumented)
     disconnectedCallback(): void;
     // (undocumented)
     expandCollapseButton: HTMLDivElement;
