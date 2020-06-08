@@ -462,8 +462,6 @@ export class MenuItem extends FASTElement {
     // (undocumented)
     expanded: boolean;
     // (undocumented)
-    handleFocus: (e: FocusEvent) => void;
-    // (undocumented)
     handleMenuItemClick: (e: MouseEvent) => void;
     // (undocumented)
     handleMenuItemKeyDown: (e: KeyboardEvent) => boolean;
