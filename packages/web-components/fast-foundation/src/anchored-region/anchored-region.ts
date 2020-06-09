@@ -219,6 +219,11 @@ export class AnchoredRegion extends FASTElement {
      */
     public region: HTMLDivElement;
 
+    /**
+     * reference to the component root
+     */
+    public root: HTMLDivElement;
+
     private openRequestAnimationFrame: boolean = false;
     private currentDirection: Direction = Direction.ltr;
 
@@ -371,7 +376,7 @@ export class AnchoredRegion extends FASTElement {
             this.viewport === ""
 
         ) {
-            return this.region.parentElement;
+            return this.root.parentElement;
         }
 
         return document.getElementById(this.viewport);
