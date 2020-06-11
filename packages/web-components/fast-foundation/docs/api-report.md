@@ -928,9 +928,7 @@ export class TreeItem extends FASTElement {
     renderCollapsedChildren: boolean;
     // (undocumented)
     selected: boolean;
-    // (undocumented)
-    treeItem: HTMLElement;
-}
+    }
 
 // @public (undocumented)
 export interface TreeItem extends StartEnd {
