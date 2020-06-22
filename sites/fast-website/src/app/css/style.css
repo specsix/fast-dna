@@ -31,6 +31,12 @@ body {
   z-index: 1;
 }
 
+.menu-opened {
+  --width-offset: 0; /* default value of the property */
+  padding-right: calc(var(--width-offset) * 1px); /* converted to pixels and applied as a padding */
+  overflow: hidden; /* prevents page scrolling */
+}
+
 .social-links {
   position: fixed;
   top: 45%;
@@ -306,6 +312,14 @@ fast-badge::part(control) {
     position: relative;
     display: flex;
     align-items: center;
+  }
+
+  .header .site-navigation {
+    position: fixed;
+  }
+
+  .header .site-navigation.opened {
+    padding-right: calc(var(--width-offset) * 1px);
   }
 
   .header site-navigation::before {
