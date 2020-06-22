@@ -49,21 +49,27 @@ export const CarouselStyles = css`
     .slide-tab {
         display: inline-block;
         padding: 4px;
-        border: none;
+        border: 1px solid #999;
         border-radius: 40px;
     }
 
     .slide-tab:hover:before {
-        opacity: 1;
+        border-color: #fff;
     }
 
-    .slide-tab::before {
+    ${/*TODO: GET THIS TAB SELECTOR WORKING*/ ""};
+
+    *::part(tab) {
+        color: red;
+    }
+
+    .slide-tab:before {
         opacity: 0.5;
         width: 32px;
         border: 1px solid #bebebe;
         border-radius: 40px;
         opacity: 0.45;
-        content: "";
+        content: " ";
         display: block;
         transition: all 0.05s ease-in-out;
         height: 4px;
