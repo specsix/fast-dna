@@ -796,6 +796,10 @@ export class Tooltip extends FASTElement {
     // (undocumented)
     disconnectedCallback(): void;
     // (undocumented)
+    handleAnchorMouseOut: (ev: Event) => void;
+    // (undocumented)
+    handleAnchorMouseOver: (ev: Event) => void;
+    // (undocumented)
     handlePositionChange: (ev: Event) => void;
     // (undocumented)
     hidden: boolean;
@@ -809,7 +813,12 @@ export class Tooltip extends FASTElement {
     position: TooltipPosition | null;
     // Warning: (ae-forgotten-export) The symbol "AnchoredRegion" needs to be exported by the entry point index.d.ts
     region: AnchoredRegion;
+    // (undocumented)
+    regionStyle: string;
+    tooltipElement: HTMLDivElement;
     tooltipRoot: HTMLDivElement;
+    // (undocumented)
+    tooltipVisible: boolean;
     // (undocumented)
     upDatePositionCSS: () => void;
     // (undocumented)
@@ -819,8 +828,8 @@ export class Tooltip extends FASTElement {
     // (undocumented)
     verticalPositioningMode: string;
     // (undocumented)
-    viewport: HTMLElement | null;
-}
+    viewportElement: HTMLElement | null;
+    }
 
 // @public (undocumented)
 export type TooltipPosition = "top" | "right" | "bottom" | "left";

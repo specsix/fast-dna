@@ -60,9 +60,7 @@ export class AnchoredRegion extends FASTElement {
     public anchor: string = "";
     private anchorChanged(): void {
         if (this.initialLayoutComplete) {
-            this.initialLayoutComplete = false;
             this.anchorElement = this.getAnchor();
-            this.reset();
         }
     }
 
@@ -70,10 +68,7 @@ export class AnchoredRegion extends FASTElement {
     public viewport: string = "";
     private viewportChanged(): void {
         if (this.initialLayoutComplete) {
-            this.initialLayoutComplete = false;
-            this.disconnectViewport(this.viewportElement);
             this.viewportElement = this.getViewport();
-            this.reset();
         }
     }
 
@@ -224,6 +219,7 @@ export class AnchoredRegion extends FASTElement {
 
     private openRequestAnimationFrame: boolean = false;
     private currentDirection: Direction = Direction.ltr;
+    private observersConnected = false;
 
     constructor() {
         super();
@@ -243,7 +239,7 @@ export class AnchoredRegion extends FASTElement {
         this.disconnectObservers();
     }
 
-    adoptedCallback() {
+    public adoptedCallback() {
         this.reset();
     }
 
@@ -263,6 +259,7 @@ export class AnchoredRegion extends FASTElement {
         this.disconnectObservers();
         this.setInitialState();
         this.connectObservers();
+        this.requestLayoutUpdate();
     }
 
     /**
@@ -315,7 +312,12 @@ export class AnchoredRegion extends FASTElement {
             this.anchorElement = this.getAnchor();
         }
 
-        if (this.anchorElement === null || this.viewportElement === null) {
+        if (
+            this.anchorElement === null || 
+            this.viewportElement === null ||
+            this.region.offsetParent === null ||
+            !this.viewportElement.contains(this.anchorElement)
+        ) {
             return;
         }
 
@@ -335,12 +337,18 @@ export class AnchoredRegion extends FASTElement {
         this.resizeDetector.observe(this.region);
 
         this.viewportElement.addEventListener("scroll", this.handleScroll);
+
+        this.observersConnected = true;
     };
 
     /**
      * disconnect observers and event handlers
      */
     private disconnectObservers = (): void => {
+        if (!this.observersConnected) {
+            return;
+        }
+
         // ensure the collisionDetector exists before disconnecting
         if (this.collisionDetector) {
             this.collisionDetector.disconnect();
@@ -352,6 +360,8 @@ export class AnchoredRegion extends FASTElement {
         }
 
         this.disconnectViewport(this.viewportElement);
+
+        this.observersConnected = false;
     };
 
     private disconnectViewport = (viewport: HTMLElement | null): void => {
