@@ -210,12 +210,12 @@ export class AnchoredRegion extends FASTElement {
     /**
      * reference to the actual anchored container
      */
-    public region: HTMLDivElement;
+    public region: HTMLDivElement | null;
 
     /**
      * reference to the component root
      */
-    public root: HTMLDivElement;
+    public root: HTMLDivElement | null;
 
     private openRequestAnimationFrame: boolean = false;
     private currentDirection: Direction = Direction.ltr;
@@ -237,6 +237,7 @@ export class AnchoredRegion extends FASTElement {
     public disconnectedCallback(): void {
         super.disconnectedCallback();
         this.disconnectObservers();
+        this.region = null;
     }
 
     public adoptedCallback() {
@@ -313,8 +314,9 @@ export class AnchoredRegion extends FASTElement {
         }
 
         if (
-            this.anchorElement === null || 
+            this.anchorElement === null ||
             this.viewportElement === null ||
+            this.region === null ||
             this.region.offsetParent === null ||
             !this.viewportElement.contains(this.anchorElement)
         ) {
@@ -374,12 +376,8 @@ export class AnchoredRegion extends FASTElement {
      * Gets the viewport element by id, or defaults to component parent
      */
     public getViewport = (): HTMLElement | null => {
-        if (
-            typeof this.viewport !== "string" ||
-            this.viewport === ""
-
-        ) {
-            return this.root.parentElement;
+        if (typeof this.viewport !== "string" || this.viewport === "") {
+            return this.root === null ? null : this.root.parentElement;
         }
 
         return document.getElementById(this.viewport);
@@ -697,10 +695,9 @@ export class AnchoredRegion extends FASTElement {
             desiredVerticalPosition
         );
 
-        const positionChanged: boolean = (
+        const positionChanged: boolean =
             this.horizontalPosition !== desiredHorizontalPosition ||
-            this.verticalPosition !== desiredVerticalPosition
-        );
+            this.verticalPosition !== desiredVerticalPosition;
 
         this.setHorizontalPosition(desiredHorizontalPosition, nextPositionerDimension);
         this.setVerticalPosition(desiredVerticalPosition, nextPositionerDimension);

@@ -802,8 +802,6 @@ export class Tooltip extends FASTElement {
     // (undocumented)
     handlePositionChange: (ev: Event) => void;
     // (undocumented)
-    hidden: boolean;
-    // (undocumented)
     horizontalDefaultPosition: string | undefined;
     // (undocumented)
     horizontalInset: string;
@@ -820,7 +818,7 @@ export class Tooltip extends FASTElement {
     // (undocumented)
     tooltipVisible: boolean;
     // (undocumented)
-    upDatePositionCSS: () => void;
+    upDatePositionCSS(): void;
     // (undocumented)
     verticalDefaultPosition: string | undefined;
     // (undocumented)
@@ -829,6 +827,8 @@ export class Tooltip extends FASTElement {
     verticalPositioningMode: string;
     // (undocumented)
     viewportElement: HTMLElement | null;
+    // (undocumented)
+    visible: boolean;
     }
 
 // @public (undocumented)
